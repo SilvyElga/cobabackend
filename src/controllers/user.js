@@ -1,4 +1,4 @@
-const { User } = require ('../../models');
+const { User, profile, product } = require ('../../models');
 
 exports.addUsers = async (req, res) => {
     
@@ -119,6 +119,63 @@ exports.deleteUser = async (req, res) => {
     res.send({
         status:'succes',
         massaage: `delete user id ${id} finished`
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+exports.getProfile = async (req, res) => {
+    
+    try {
+
+    const data = await profile.findAll({
+        include:{
+            as:'User',
+            model: User
+        }
+    });
+
+    res.send({
+        status:'succes',
+        data: {
+            data,
+        }
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+
+exports.getUserProducts = async (req, res) => {
+    
+    try {
+
+    const data = await User.findAll({
+        include: {
+            model: product,
+            as:'products',
+        }
+    });
+
+    res.send({
+        status:'succes',
+        succes: {
+            data
+        }
     });
         
     } catch (error) {
