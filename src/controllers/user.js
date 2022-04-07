@@ -1,9 +1,132 @@
 const { User } = require ('../../models');
 
 exports.addUsers = async (req, res) => {
-    const data = req.body;
+    
+    try {
 
-    await User.create(data);
+    await User.create(req.body);
 
-    res.send(data);
+    res.send({
+        status:'succes',
+        massaage: 'add user finished'
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+exports.getUsers = async (req, res) => {
+    
+    try {
+
+    const data = await User.findAll();
+
+    res.send({
+        status:'succes',
+        succes: {
+            data
+        }
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+
+exports.getUser = async (req, res) => {
+    
+    try {
+
+        const id = req.params.id
+
+    const data = await User.findOne({
+        where: {
+            id
+        },
+    });
+
+    res.send({
+        status:'succes',
+        succes: {
+            data
+        }
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+exports.updateUser = async (req, res) => {
+    
+    try {
+
+        const id = req.params.id
+
+        const newData = req.body
+
+    await User.update(newData, {
+        where: {
+            id
+        },
+    });
+
+    res.send({
+        status:'succes',
+        massage:`update user data id: ${id} finished`
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
+}
+
+
+exports.deleteUser = async (req, res) => {
+    
+    try {
+
+        const id = req.params.id
+
+    await User.destroy({
+        where: {
+            id
+        },
+    });
+
+    res.send({
+        status:'succes',
+        massaage: `delete user id ${id} finished`
+    });
+        
+    } catch (error) {
+        console.log(error)
+        res.send({
+            status:'failed',
+            massage:'server error'
+        })
+    }
+    
 }
