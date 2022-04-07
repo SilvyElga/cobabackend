@@ -1,17 +1,9 @@
-const { user } = require ('../../models');
+const { User } = require ('../../models');
 
 exports.addUsers = async (req, res) => {
+    const data = req.body;
 
-    try {
-        const data = req.body;
+    await User.create(data);
 
-        const userData = await user.create({data});
-    
-        res.send(userData);
-        
-    } catch (error) {
-        console.log('error')
-        
-    }
-    
+    res.send(data);
 }
