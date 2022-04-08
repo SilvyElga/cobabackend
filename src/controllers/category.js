@@ -1,10 +1,10 @@
 const {  product, User, category, categoryProduct } = require ('../../models');
 
-exports.addProduct = async (req, res) => {
+exports.addCategory = async (req, res) => {
     
     try {
 
-    await product.create(req.body);
+    await category.create(req.body);
 
     res.send({
         status:'succes',
@@ -21,39 +21,11 @@ exports.addProduct = async (req, res) => {
     
 }
 
-exports.getProduct = async (req, res) => {
+exports.getCategories = async (req, res) => {
     
     try {
 
-    const data = await product.findAll({
-        include:{
-            as:'User',
-            model: User
-        }
-    });
-
-    res.send({
-        status:'succes',
-        data: {
-            data,
-        }
-    });
-        
-    } catch (error) {
-        console.log(error)
-        res.send({
-            status:'failed',
-            massage:'server error'
-        })
-    }
-    
-}
-
-exports.getProducts = async (req, res) => {
-    
-    try {
-
-    const data = await product.findAll();
+    const data = await category.findAll();
 
     res.send({
         status:'succes',
@@ -72,13 +44,13 @@ exports.getProducts = async (req, res) => {
     
 }
 
-exports.getDetail = async (req, res) => {
+exports.getCategory = async (req, res) => {
     
     try {
 
         const id = req.params.id
 
-    const data = await product.findOne({
+    const data = await category.findOne({
         where: {
             id
         },
@@ -101,7 +73,8 @@ exports.getDetail = async (req, res) => {
     
 }
 
-exports.updateProduct = async (req, res) => {
+
+exports.updateCategory = async (req, res) => {
     
     try {
 
@@ -109,7 +82,7 @@ exports.updateProduct = async (req, res) => {
 
         const newData = req.body
 
-    await product.update(newData, {
+    await category.update(newData, {
         where: {
             id
         },
@@ -117,7 +90,7 @@ exports.updateProduct = async (req, res) => {
 
     res.send({
         status:'succes',
-        massage:`update product id: ${id} finished`
+        massage:`update category id: ${id} finished`
     });
         
     } catch (error) {
@@ -130,13 +103,13 @@ exports.updateProduct = async (req, res) => {
     
 }
 
-exports.deleteProduct = async (req, res) => {
+exports.deleteCategory = async (req, res) => {
     
     try {
 
         const id = req.params.id
 
-    await product.destroy({
+    await category.destroy({
         where: {
             id
         },
@@ -144,47 +117,7 @@ exports.deleteProduct = async (req, res) => {
 
     res.send({
         status:'succes',
-        massaage: `delete product id ${id} finished`
-    });
-        
-    } catch (error) {
-        console.log(error)
-        res.send({
-            status:'failed',
-            massage:'server error'
-        })
-    }
-    
-}
-
-
-exports.getcategoryProduct = async (req, res) => {
-    
-    try {
-
-    const data = await product.findAll({
-        include: [
-            {
-            model:User,
-            as:'User',
-        },
-        {
-            model:category,
-            as:'category',
-            through: {
-                model: categoryProduct,
-                as: 'bridge'
-            }
-        }
-    ] 
-  
-    });
-
-    res.send({
-        status:'succes',
-        succes: {
-            data
-        }
+        massaage: `delete category ${id} finished`
     });
         
     } catch (error) {

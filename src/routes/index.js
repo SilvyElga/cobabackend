@@ -5,7 +5,9 @@ const router = express.Router()
 
 const { addUsers, getUsers, getUser, updateUser, deleteUser, getProfile, getUserProducts} = require ("../controllers/user")
 
-const { getcategoryProduct } = require ("../controllers/product")
+const { addProduct, getProduct, getProducts, getDetail, updateProduct, deleteProduct, getcategoryProduct } = require ("../controllers/product")
+
+const { addCategory, getCategories, getCategory, updateCategory, deleteCategory } = require("../controllers/category")
 
 
 
@@ -22,6 +24,24 @@ router.get("/profile", getProfile )
 router.get("/product", getUserProducts )
 
 router.get("/category", getcategoryProduct )
+
+//product
+router.post("/product", addProduct )
+router.get("/product", getProduct )
+router.get("/products", getProducts )
+router.get("/detail/:id", getDetail )
+router.patch("/product/:id", updateProduct )
+router.delete("/product/:id", deleteProduct )
+
+//category
+router.post("/category", addCategory )
+router.get("/categories", getCategories )
+router.get("/category/:id", getCategory )
+router.patch("/category/:id", updateCategory)
+router.delete("/category/:id", deleteCategory)
+
+
+
 
 
 
