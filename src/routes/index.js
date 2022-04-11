@@ -11,8 +11,8 @@ const { addCategory, getCategories, getCategory, updateCategory, deleteCategory 
 
 
 
-router.post("/register", addUsers )
-router.post("/login", addUsers )
+// router.post("/register", addUsers )
+// router.post("/login", addUsers )
 router.get("/user", getUsers )
 router.get("/user/:id", getUser )
 router.patch("/user/:id", updateUser )
@@ -24,6 +24,8 @@ router.get("/profile", getProfile )
 router.get("/product", getUserProducts )
 
 router.get("/category", getcategoryProduct )
+
+const {register, login} = require('../controllers/auth')
 
 //product
 router.post("/product", addProduct )
@@ -39,6 +41,9 @@ router.get("/categories", getCategories )
 router.get("/category/:id", getCategory )
 router.patch("/category/:id", updateCategory)
 router.delete("/category/:id", deleteCategory)
+
+router.post("/register", register)
+router.post("/login", login)
 
 
 
