@@ -2,16 +2,19 @@ const express = require("express")
 
 const router = express.Router()
 
-
+const {register, login, checkAuth} = require('../controllers/auth')
 const { addUsers, getUsers, getUser, updateUser, deleteUser, getProfile, getUserProducts} = require ("../controllers/user")
 
 const { addProduct, getProduct, getProducts, getDetail, updateProduct, deleteProduct, getcategoryProduct } = require ("../controllers/product")
 
 const { addCategory, getCategories, getCategory, updateCategory, deleteCategory } = require("../controllers/category")
 
+const { auth } = require('../middleware/auth')
 
 
-// router.post("/register", addUsers )
+
+
+// router.post("/Register", addUsers )
 // router.post("/login", addUsers )
 router.get("/user", getUsers )
 router.get("/user/:id", getUser )
@@ -25,7 +28,9 @@ router.get("/product", getUserProducts )
 
 router.get("/category", getcategoryProduct )
 
-const {register, login} = require('../controllers/auth')
+
+
+
 
 //product
 router.post("/product", addProduct )
@@ -44,6 +49,7 @@ router.delete("/category/:id", deleteCategory)
 
 router.post("/register", register)
 router.post("/login", login)
+router.get("/check-auth", checkAuth)
 
 
 
